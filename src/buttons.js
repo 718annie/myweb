@@ -33,7 +33,7 @@ class Buttons extends React.Component{
                   basic: true,
                   color: "blue",
                   pointing: "left",
-                  content: "0",
+                  content: "20",
                 }}
               /></div>)
   }
