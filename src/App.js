@@ -28,7 +28,7 @@ function App() {
 
       <Comments />
       <Divider horizontal>
-        <Header as="h4"> style = {{color : "white" }}>
+        <Header as="h4" style = {{color : "white" }}>
           <Icon name="microchip" style = {{color : "white" }}/>
           Contact Me
         </Header>
