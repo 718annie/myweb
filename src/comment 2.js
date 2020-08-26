@@ -9,11 +9,11 @@ function SingleComment(detail) {
     <Comment>
       <Comment.Content>
         <Comment.Avatar src={human} />
-        <Comment.Author as="a" style = {{color : "white", marginLeft :"5px"}}>방문자</Comment.Author>
+        <Comment.Author as="a" style = {{color : "white" }}>방문자</Comment.Author>
         <Comment.Metadata>
           <div style = {{color : "white" }}>{detail.info.time}</div>
         </Comment.Metadata>
-        <Comment.Text style = {{color : "white", marginLeft :"40px"}}>{detail.info.content}</Comment.Text>
+        <Comment.Text style = {{color : "white" }}>{detail.info.content}</Comment.Text>
       </Comment.Content>
     </Comment>
   );
