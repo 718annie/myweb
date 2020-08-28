@@ -19,7 +19,6 @@ import 포스터 from "./포스터.jpg";
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
-      <h2 style={{ color: "white", textAlign: "center", paddingtop: "15px" }}>
 class App extends React.Component {
   constructor(){
     super()
