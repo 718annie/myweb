@@ -19,108 +19,121 @@ import 포스터 from "./포스터.jpg";
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
-function App() {
-  return (
-    <div style={{ backgroundColor: "black" }}>
       <h2 style={{ color: "white", textAlign: "center", paddingtop: "15px" }}>
-        {" "}
-        COPYCAT{" "}
-      </h2>
-      <Menu inverted widths={3}>
-        <Menu.Item>Menu</Menu.Item>
-        <Menu.Item>반가워요, 방문자님. </Menu.Item>
-        <Menu.Item
-          onClick={() => {
-            firebase
-              .auth()
-              .signInWithPopup(provider)
-              .then(function (result) {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                var token = result.credential.accessToken;
-                // The signed-in user info.
-                var user = result.user;
-                // ...
-              })
-              .catch(function (error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // The email of the user's account used.
-                var email = error.email;
-                // The firebase.auth.AuthCredential type that was used.
-                var credential = error.credential;
-                // ...
-              });
-          }}
-        >
-          Login
-        </Menu.Item>
-      </Menu>
-      <Divider horizontal>
-        <Header as="h4" style={{ color: "white" }}>
-          <Icon name="paperclip" style={{ color: "white" }} />
-          My Project
-        </Header>
-      </Divider>
-      <Grid centered>
-        <Grid.Row>
-          <Image src={포스터} centered />
-        </Grid.Row>
-        <Grid.Row>
-          <Buttons />
-        </Grid.Row>
-      </Grid>
-      <br />
-
-      <Divider horizontal>
-        <Header as="h4" style={{ color: "white" }}>
-          <Icon name="comment alternate" style={{ color: "white" }} />
-          댓글을 입력하세요
-        </Header>
-      </Divider>
-
-      <Comments />
-      <Divider horizontal>
-        <Header as="h4" style={{ color: "white" }}>
-          <Icon name="microchip" style={{ color: "white" }} />
-          Contact Me
-        </Header>
-      </Divider>
-      <br />
-      <div>
+class App extends React.Component {
+  constructor(){
+    super()
+      this.state = {
+        userName : "방문자"
+    }
+  }
+  render() {
+    return (
+      <div style={{ backgroundColor: "black" }}>
+        <h2 style={{ color: "white", textAlign: "center", paddingtop: "15px" }}>
+          {" "}
+          COPYCAT{" "}
+        </h2>
+        <Menu inverted widths={3}>
+          <Menu.Item>Menu</Menu.Item>
+          <Menu.Item>{`반가워요,  ${this.state.userName}님.`} </Menu.Item>
+          <Menu.Item
+            onClick={() => {
+              firebase
+                .auth()
+                .signInWithPopup(provider)
+                .then(function (result) {
+                  // This gives you a Google Access Token. You can use it to access the Google API.
+                  var token = result.credential.accessToken;
+                  // The signed-in user info.
+                  var user = result.user;
+                  return user.displayname;
+                  // ...
+                }).then(result =>
+                this.setState({userName : result}) )
+                .catch(function (error) {
+                  // Handle Errors here.
+                  var errorCode = error.code;
+                  var errorMessage = error.message;
+                  // The email of the user's account used.
+                  var email = error.email;
+                  // The firebase.auth.AuthCredential type that was used.
+                  var credential = error.credential;
+                  // ...
+                });
+            }}
+          >
+            Login
+          </Menu.Item>
+        </Menu>
+        <Divider horizontal>
+          <Header as="h4" style={{ color: "white" }}>
+            <Icon name="paperclip" style={{ color: "white" }} />
+            My Project
+          </Header>
+        </Divider>
         <Grid centered>
-          <Button
-            circular
-            color="facebook"
-            icon="facebook"
-            onClick={() => alert("준비중입니다.")}
-          />
-          <Button
-            circular
-            color="instagram"
-            icon="instagram"
-            onClick={() => window.open("https://www.instagram.com/?hl=ko")}
-          />
-          <Button
-            circular
-            color="youtube"
-            icon="youtube"
-            onClick={() =>
-              window.open(
-                "https://www.youtube.com/channel/UCxnaK0xpB3Xu6OZb7svT5mw?view_as=subscriber"
-              )
-            }
-          />
-          <Button
-            circular
-            color="google plus"
-            icon="google plus"
-            onClick={() => alert("준비중입니다.")}
-          />
+          <Grid.Row>
+            <Image src={포스터} centered />
+          </Grid.Row>
+          <Grid.Row>
+            <Buttons />
+          </Grid.Row>
         </Grid>
+        <br />
+
+        <Divider horizontal>
+          <Header as="h4" style={{ color: "white" }}>
+            <Icon name="comment alternate" style={{ color: "white" }} />
+            댓글을 입력하세요
+          </Header>
+        </Divider>
+
+        <Comments userName = {this.state.userName}/>
+        <Divider horizontal>
+          <Header as="h4" style={{ color: "white" }}>
+            <Icon name="microchip" style={{ color: "white" }} />
+            Contact Me
+          </Header>
+        </Divider>
+        <br />
+        <div>
+          <Grid centered>
+            <Button
+              circular
+              color="facebook"
+              icon="facebook"
+              onClick={() => alert("준비중입니다.")}
+            />
+            <Button
+              circular
+              color="instagram"
+              icon="instagram"
+              onClick={() => window.open("https://www.instagram.com/?hl=ko")}
+            />
+            <Button
+              circular
+              color="youtube"
+              icon="youtube"
+              onClick={() =>
+                window.open(
+                  "https://www.youtube.com/channel/UCxnaK0xpB3Xu6OZb7svT5mw?view_as=subscriber"
+                )
+              }
+            />
+            <Button
+              circular
+              color="google plus"
+              icon="google plus"
+              onClick={() => alert("준비중입니다.")}
+            />
+          </Grid>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+
 }
+
 
 export default App;

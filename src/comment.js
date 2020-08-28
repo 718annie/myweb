@@ -9,11 +9,15 @@ function SingleComment(detail) {
     <Comment>
       <Comment.Content>
         <Comment.Avatar src={human} />
-        <Comment.Author as="a" style = {{color : "white", marginLeft :"5px"}}>방문자</Comment.Author>
+        <Comment.Author as="a" style={{ color: "white", marginLeft: "5px" }}>
+          {detail.info.userName}
+        </Comment.Author>
         <Comment.Metadata>
-          <div style = {{color : "white" }}>{detail.info.time}</div>
+          <div style={{ color: "white" }}>{detail.info.time}</div>
         </Comment.Metadata>
-        <Comment.Text style = {{color : "white", marginLeft :"40px"}}>{detail.info.content}</Comment.Text>
+        <Comment.Text style={{ color: "white", marginLeft: "40px" }}>
+          {detail.info.content}
+        </Comment.Text>
       </Comment.Content>
     </Comment>
   );
@@ -25,6 +29,7 @@ class Comments extends React.Component {
     this.state = {
       inputContent: "",
       inputTime: "",
+      userName: "",
       commentsList: [],
     };
   }
@@ -33,7 +38,7 @@ class Comments extends React.Component {
     console.log(this.state.commentsList);
     return (
       <Comment.Group style={{ marginLeft: "600px" }}>
-        <Header as="h3" dividing style = {{color : "white" }}>
+        <Header as="h3" dividing style={{ color: "white" }}>
           Comments
         </Header>
 
@@ -63,6 +68,7 @@ class Comments extends React.Component {
                         time: moment().format(
                           "YYYY년 MM월 DD일 HH시 mm분 ss초"
                         ),
+                        userName: this.props.userName,
                       },
                     ],
                     inputContent: "",
