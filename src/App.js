@@ -13,6 +13,7 @@ import {
 
 import Comments from "./comment.js";
 import Buttons from "./buttons.js";
+import VisitorsModal from "./modal.js";
 import auth from "./fb.js";
 
 import 포스터 from "./포스터.jpg";
@@ -20,15 +21,28 @@ import 포스터 from "./포스터.jpg";
 var provider = new firebase.auth.GoogleAuthProvider();
 
 class App extends React.Component {
-  constructor(){
-    super()
-      this.state = {
-        userName : "방문자"
-    }
+  constructor() {
+    super();
+    this.state = {
+      userName: "방문자",
+      isModalOpen: false,
+      visitors: ["Susan", "Mina", "John"]
+    };
   }
+
+  toggleModal = () =>
+    this.setState((prevState) => {
+      return { isModalOpen: !prevState.isModalOpen };
+    });
+
   render() {
     return (
       <div style={{ backgroundColor: "black" }}>
+        <VisitorsModal
+          isOpen={this.state.isModalOpen}
+          closeModal={this.toggleModal}
+          visitorsList={this.state.visitors}
+        />
         <h2 style={{ color: "white", textAlign: "center", paddingtop: "15px" }}>
           {" "}
           COPYCAT{" "}
@@ -48,8 +62,8 @@ class App extends React.Component {
                   var user = result.user;
                   return user.displayname;
                   // ...
-                }).then(result =>
-                this.setState({userName : result}) )
+                })
+                .then((result) => this.setState({ userName: result }))
                 .catch(function (error) {
                   // Handle Errors here.
                   var errorCode = error.code;
@@ -76,7 +90,10 @@ class App extends React.Component {
             <Image src={포스터} centered />
           </Grid.Row>
           <Grid.Row>
-            <Buttons />
+            <Buttons
+              openModal={this.toggleModal}
+              visitors={this.state.visitors.length}
+            />
           </Grid.Row>
         </Grid>
         <br />
@@ -87,8 +104,12 @@ class App extends React.Component {
             댓글을 입력하세요
           </Header>
         </Divider>
+        <Grid centered columns={3}>
+          <Grid.Column>
+            <Comments userName={this.state.userName} />
+          </Grid.Column>
+        </Grid>
 
-        <Comments userName = {this.state.userName}/>
         <Divider horizontal>
           <Header as="h4" style={{ color: "white" }}>
             <Icon name="microchip" style={{ color: "white" }} />
@@ -131,8 +152,6 @@ class App extends React.Component {
       </div>
     );
   }
-
 }
-
 
 export default App;

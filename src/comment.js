@@ -2,6 +2,7 @@ import React from "react";
 import { Comment, Form, Button, Header } from "semantic-ui-react";
 import moment from "moment";
 
+
 import human from "./human.png";
 
 function SingleComment(detail) {
@@ -37,7 +38,7 @@ class Comments extends React.Component {
   render() {
     console.log(this.state.commentsList);
     return (
-      <Comment.Group style={{ marginLeft: "600px" }}>
+      <Comment.Group>
         <Header as="h3" dividing style={{ color: "white" }}>
           Comments
         </Header>

@@ -26,15 +26,16 @@ class Buttons extends React.Component{
               />
               <Button
                 color="blue"
-                content="Share"
-                icon="fork"
+                content="Visitors"
+                icon="vine"
                 label={{
                   as: "a",
                   basic: true,
                   color: "blue",
                   pointing: "left",
-                  content: "0",
+                  content: this.props.visitors,
                 }}
+                onClick = {()=> this.props.openModal()}
               /></div>)
   }
 }
