@@ -1,6 +1,15 @@
 import React from "react";
-import { Comment, Form, Button, Header } from "semantic-ui-react";
+import {
+  Comment,
+  Form,
+  Button,
+  Header,
+  Pagination,
+  Segment,
+  Grid,
+} from "semantic-ui-react";
 import moment from "moment";
+import _ from "lodash";
 
 import { db } from "./fb.js";
 
@@ -11,7 +20,10 @@ function SingleComment(detail) {
     <Comment>
       <Comment.Content>
         <Comment.Avatar src={human} />
-        <Comment.Author as="a" style={{ color: "paleTurquoise", marginLeft: "5px" }}>
+        <Comment.Author
+          as="a"
+          style={{ color: "paleTurquoise", marginLeft: "5px" }}
+        >
           {detail.info.userName}
         </Comment.Author>
         <Comment.Metadata>
@@ -19,9 +31,17 @@ function SingleComment(detail) {
         </Comment.Metadata>
         <Comment.Text style={{ color: "white", marginLeft: "40px" }}>
           {detail.info.content}
-        </Comment.Text>  <Comment.Actions>
-          <Comment.Action style= {{ color:"salmon", marginLeft: "40px" }} onClick = {()=>alert("sdg")}>삭제</Comment.Action>
-       </Comment.Actions>
+        </Comment.Text>{" "}
+        <Comment.Actions>
+          <Comment.Action
+            style={{ color: "salmon", marginLeft: "40px" }}
+            onClick={() => {
+              if (detail.info.userName == detail.userName){
+                db.collection("comments").doc(detail.info.id).delete().alert("삭제가 완료되었습니다!")
+
+              }
+          }}>삭제</Comment.Action>
+        </Comment.Actions>
       </Comment.Content>
     </Comment>
   );
@@ -44,7 +64,7 @@ class Comments extends React.Component {
       .then((ss) => {
         let comments = [];
         ss.forEach((doc) => {
-          comments.push(doc.data());
+          comments.push(Object.assign (doc.data(), {id: doc.id}) );
         });
         return comments;
       })
@@ -60,8 +80,8 @@ class Comments extends React.Component {
           Comments
         </Header>
 
-        {this.state.commentsList.map((comments) => (
-          <SingleComment info={comments} />
+        {this.state.commentList.map((comments) => (
+          <SingleComment info={comments} userName = {this.props.userName} />
         ))}
 
         <Form reply>
@@ -76,7 +96,7 @@ class Comments extends React.Component {
             icon="edit"
             primary
             onClick={() => {
-              if (this.state.inputContent !== "") {
+              if (this.state.inputContent != "") {
                 this.setState(
                   (prevState) => {
                     let newComment = {
@@ -105,6 +125,13 @@ class Comments extends React.Component {
             }}
           />
         </Form>
+        {_.orderBy(this.state.commentsList, "time", "desc").map((comments) => (
+          <SingleComment info={comments} />
+        ))}
+        <br />
+        <Grid centered style={{ padding: 15 }}>
+          <Pagination inverted totalPages={5} />
+        </Grid>
       </Comment.Group>
     );
   }
