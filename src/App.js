@@ -79,6 +79,50 @@ class App extends React.Component {
             Login
           </Menu.Item>
         </Menu>
+         <Divider horizontal>
+            <Header as="h4" style={{ color: "white" }}>
+              <Icon name="microchip" style={{ color: "white" }} />
+              Contact Me
+            </Header>
+          </Divider>
+          <br />
+          <div>
+            <Grid centered>
+              <Button
+                circular
+                color="facebook"
+                icon="facebook"
+               style ={{marginLeft : 10}}
+                onClick={() => alert("준비중입니다.")}
+              />
+              <Button
+                circular
+                color="instagram"
+                icon="instagram"
+                style ={{marginLeft : 20}}
+                onClick={() => window.open("https://www.instagram.com/?hl=ko")}
+              />
+              <Button
+                circular
+                color="youtube"
+                icon="youtube"
+                style ={{marginLeft : 20}}
+                onClick={() =>
+                  window.open(
+                    "https://www.youtube.com/channel/UCxnaK0xpB3Xu6OZb7svT5mw?view_as=subscriber"
+                  )
+                }
+              />
+              <Button
+                circular
+                color="google plus"
+                icon="google plus"
+                style ={{marginLeft : 20}}
+                onClick={() => alert("준비중입니다.")}
+              />
+            </Grid>
+          </div>
+          <br/>
         <Divider horizontal>
           <Header as="h4" style={{ color: "white" }}>
             <Icon name="paperclip" style={{ color: "white" }} />
@@ -110,45 +154,7 @@ class App extends React.Component {
           </Grid.Column>
         </Grid>
 
-        <Divider horizontal>
-          <Header as="h4" style={{ color: "white" }}>
-            <Icon name="microchip" style={{ color: "white" }} />
-            Contact Me
-          </Header>
-        </Divider>
-        <br />
-        <div>
-          <Grid centered>
-            <Button
-              circular
-              color="facebook"
-              icon="facebook"
-              onClick={() => alert("준비중입니다.")}
-            />
-            <Button
-              circular
-              color="instagram"
-              icon="instagram"
-              onClick={() => window.open("https://www.instagram.com/?hl=ko")}
-            />
-            <Button
-              circular
-              color="youtube"
-              icon="youtube"
-              onClick={() =>
-                window.open(
-                  "https://www.youtube.com/channel/UCxnaK0xpB3Xu6OZb7svT5mw?view_as=subscriber"
-                )
-              }
-            />
-            <Button
-              circular
-              color="google plus"
-              icon="google plus"
-              onClick={() => alert("준비중입니다.")}
-            />
-          </Grid>
-        </div>
+
       </div>
     );
   }
