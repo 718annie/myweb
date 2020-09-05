@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Comment,
-  Form,
-  Button,
-  Header,
-  Pagination,
-  Segment,
-  Grid,
-} from "semantic-ui-react";
+import { Comment, Form, Button, Header, Pagination, Segment, Grid } from "semantic-ui-react";
 import moment from "moment";
 import _ from "lodash";
 
@@ -31,14 +23,11 @@ function SingleComment(detail) {
         </Comment.Metadata>
         <Comment.Text style={{ color: "white", marginLeft: "40px" }}>
           {detail.info.content}
-        </Comment.Text>{" "}
-        <Comment.Actions>
+        </Comment.Text> <Comment.Actions>
           <Comment.Action
-            style={{ color: "salmon", marginLeft: "40px" }}
-            onClick={() => {
+            style={{ color: "salmon", marginLeft: "40px" }} onClick={() => {
               if (detail.info.userName == detail.userName){
                 db.collection("comments").doc(detail.info.id).delete().alert("삭제가 완료되었습니다!")
-
               }
           }}>삭제</Comment.Action>
         </Comment.Actions>
@@ -64,7 +53,7 @@ class Comments extends React.Component {
       .then((ss) => {
         let comments = [];
         ss.forEach((doc) => {
-          comments.push(Object.assign (doc.data(), {id: doc.id}) );
+          comments.push(Object.assign (doc.data(), {id : doc.id}) );
         });
         return comments;
       })
